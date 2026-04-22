@@ -36,7 +36,7 @@ public class UIGameManager : MonoBehaviour
     private void OnElementAdded(Window window)
     {
         window.window.SetActive(true);
-        //->leo el contenido , lo activo y lo pongo al frente
+        //->leo el contenido , lo activo y lo pongo al frente xd
     }
     private void OnElementRemoved(Window window)
     {
