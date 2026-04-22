@@ -35,11 +35,12 @@ public class UIGameManager : MonoBehaviour
     }
     private void OnElementAdded(Window window)
     {
-        
+        window.window.SetActive(true);
         //->leo el contenido , lo activo y lo pongo al frente
     }
     private void OnElementRemoved(Window window)
     {
+        window.window.SetActive(false);
         //->desactivo el panel y lo mando al final
     }
 
