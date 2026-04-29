@@ -1,12 +1,10 @@
-using UnityEngine;
-using Sirenix.OdinInspector;
-
 public class StackNode<T>
 {
     #region Privates
     private T value;
     private StackNode<T> next;
     #endregion
+
     #region Constructor
     public StackNode(T value)
     {
@@ -14,12 +12,14 @@ public class StackNode<T>
         next = null;
     }
     #endregion
+
     #region Public Methods
-    public void SetNext (StackNode<T> next)
+    public void SetNext(StackNode<T> next)
     {
         this.next = next;
     }
     #endregion
+
     #region Getters
     public T Value => value;
     public StackNode<T> Next => next;

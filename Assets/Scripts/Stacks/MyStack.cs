@@ -1,65 +1,60 @@
-using Unity.VisualScripting;
-using UnityEngine;
-
-public class MyStack<T> //->strings
+public class MyStack<T>
 {
-
     #region Privates
     private StackNode<T> top;
     private int count;
     #endregion
+
     #region Public Methods
+
     public virtual void Push(T value)
     {
         StackNode<T> newNode = new StackNode<T>(value);
-        //->pila vacia
-        if(top == null)
+
+        if (top == null)
         {
             top = newNode;
-            count++;
-            return;
         }
-        //->pila ya tiene un elemtno
-        newNode.SetNext(top);
-        top = newNode;
+        else
+        {
+            newNode.SetNext(top);
+            top = newNode;
+        }
 
-        count++;    
+        count++;
     }
 
     public virtual T Pop()
     {
-        if (top == null) 
-            throw new System.Exception("Trying to pop a empty stack");
+        if (top == null)
+            return default;
 
         T tempValue = top.Value;
-      // StackNode<T> tempValue = top;
 
         top = top.Next;
         count--;
 
         return tempValue;
     }
-    public virtual T Peek()//-> +1  Jeremy , arribasplata, traviz 
+
+    public virtual T Peek()
     {
         if (top == null)
-            throw new System.Exception("Trying to peek a empty stack");
+            return default;
 
-        T tempValue = top.Value;
-        return tempValue;
+        return top.Value;
     }
 
-
-    public virtual void Clear()//+1  coretin, juan diego, guerrero erwin !
+    public virtual void Clear()
     {
         top = null;
         count = 0;
     }
+
     #endregion
+
     #region Getters
     public StackNode<T> Top => top;
     public int Count => count;
     #endregion
-
-
-
 }

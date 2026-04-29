@@ -1,6 +1,4 @@
-using Sirenix.OdinInspector;
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class WindowManager : MyStack<Window>
@@ -8,27 +6,42 @@ public class WindowManager : MyStack<Window>
     public Action<Window> OnElementAdded;
     public Action<Window> OnElementRemoved;
 
-
-
     public override void Push(Window value)
     {
         base.Push(value);
         OnElementAdded?.Invoke(Peek());
-
     }
 
-    public override Window Pop()//+1 jeremy , coreting , arribasplata
+    public override Window Pop()
     {
-        //->si el elemento que popeo es esta activo tiro el OnElementRemoved , caso contrario no lo realizo.    (IF)
+        if (Count == 0) return null;
 
-        if (Peek().window.activeSelf == true)
+        Window topWindow = Peek();
+
+        if (topWindow != null && topWindow.window.activeSelf)
         {
-            OnElementRemoved?.Invoke(Peek());
+            OnElementRemoved?.Invoke(topWindow);
+            return base.Pop();
         }
-        return base.Pop();
+        else
+        {
+            base.Pop();
+            return Pop();
+        }
     }
 
+    public bool Contains(GameObject panel)
+    {
+        StackNode<Window> current = Top;
 
-   
+        while (current != null)
+        {
+            if (current.Value.window == panel)
+                return true;
 
+            current = current.Next;
+        }
+
+        return false;
+    }
 }

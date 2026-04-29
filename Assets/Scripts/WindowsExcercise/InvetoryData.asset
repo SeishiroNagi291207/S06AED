@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 664cd80b5c8c76044bfc3fa84d50cda6, type: 3}
   m_Name: InvetoryData
   m_EditorClassIdentifier: Assembly-CSharp::InvetoryData
-  hp: 0
-  str: 0
-  life: 0
+  hp: 220
+  str: 35
+  life: 10

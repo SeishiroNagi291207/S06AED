@@ -1,19 +1,15 @@
-using Sirenix.OdinInspector;
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class UIGameManager : MonoBehaviour
 {
     public InputSystem_Actions inputs;
-    public WindowManager wmanager = new ();
+    public WindowManager wmanager = new WindowManager();
 
     private void Awake()
     {
-        inputs = new();
+        inputs = new InputSystem_Actions();
     }
-
 
     private void OnEnable()
     {
@@ -24,47 +20,57 @@ public class UIGameManager : MonoBehaviour
         wmanager.OnElementRemoved += OnElementRemoved;
     }
 
+    private void OnDisable()
+    {
+        inputs.UI.Escape.performed -= HideCurrentPanel;
 
-    void Start()
-    {
-        
+        wmanager.OnElementAdded -= OnElementAdded;
+        wmanager.OnElementRemoved -= OnElementRemoved;
+
+        inputs.Disable();
     }
-    void Update()
-    {
-        
-    }
+
     private void OnElementAdded(Window window)
     {
         window.window.SetActive(true);
         window.window.transform.SetAsLastSibling();
-        //->leo el contenido , lo activo y lo pongo al frente
     }
+
     private void OnElementRemoved(Window window)
     {
         window.window.SetActive(false);
-        //->desactivo el panel y lo mando al final
     }
 
     private void HideCurrentPanel(InputAction.CallbackContext context)
     {
-        wmanager.Pop();
-        //-> verifico si la window de este pop esta activada o desactvida
-        //-> si esta activa funciono normalmente
-        //-> si ya esta desactivada hago una llamada recursiva haciendo pop hasta que encuentro uno que pueda desactivar
-        Debug.Log("Escape");
+        if (wmanager.Count > 0)
+        {
+            wmanager.Pop();
+        }
     }
 
     public void BtnOpenPanel(GameObject panel)
     {
-        Window window = new(panel);
+        if (panel == null) return;
+
+        if (panel.activeSelf)
+        {
+            panel.transform.SetAsLastSibling();
+            return;
+        }
+
+        Window window = new Window(panel);
         wmanager.Push(window);
     }
-    [Button]
+
     public void PeekFromStack()
     {
-        Debug.Log(wmanager.Peek().window.name);
+        if (wmanager.Count > 0)
+            Debug.Log(wmanager.Peek().window.name);
     }
-    [Button]
-    public void Count() => Debug.Log(wmanager.Count);
 
+    public void Count()
+    {
+        Debug.Log(wmanager.Count);
+    }
 }
