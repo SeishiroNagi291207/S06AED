@@ -4,10 +4,10 @@ using UnityEngine;
 public class EntityStats : ScriptableObject
 {
     [SerializeField] private float speed;//->mayor velocidad
-    [SerializeField] private float id;//->menor id
-    [SerializeField] private string entityName;
+    [SerializeField] private int id;//->menor id
+    [SerializeField] private string entityName;//nombre
 
     public float Speed => speed;
-    public float Id => id;
+    public int Id => id;
     public string EntityName => entityName;
 }

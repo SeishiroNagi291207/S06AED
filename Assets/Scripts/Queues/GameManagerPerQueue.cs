@@ -1,4 +1,5 @@
 using Sirenix.OdinInspector;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -11,37 +12,39 @@ public class GameManagerPerQueue : MonoBehaviour
 
 
     public PriorityQueue<EntityStats> priorityQueue =
-        new((a, b) => a.Speed < b.Speed);
+        new((a, b) => a.Speed > b.Speed);
+
+    public List<Entity> entitys = new ();
     void Start()
     {
 
     }
     [Button]
-    public void Enqueue(string name)
+    public void Enqueue(EntityStats Entity)
     {
-        BankQueue.Enqueue(name);
+        priorityQueue.Enqueue(Entity);
     }
     [Button]
     public void Dequeue()
     {
-        Debug.Log("Pase a ser atendido : " + BankQueue.Dequeue());
+        Debug.Log("Pase a ser atendido : " + priorityQueue.Dequeue());
     }
     [Button]
     public void Peek()
     {
-        Debug.Log("El siguiente en ser atendido sera ... " + BankQueue.Peek());
+        Debug.Log("El siguiente en ser atendido sera ... " + priorityQueue.Peek());
     }
 
     [Button]
     public void Clear()
     {
-        BankQueue.Clear();
+        priorityQueue.Clear();
     }
 
     [Button]
     public void Count()
     {
-        Debug.Log(BankQueue.Count);
+        Debug.Log(priorityQueue.Count);
     }
 
 
