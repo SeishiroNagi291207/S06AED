@@ -1,95 +1,79 @@
 using System;
-using UnityEngine;
 
 public class PriorityQueue<T>
 {
-    #region Properties/Privates
     private QueueNode<T> head;
-    //private QueueNode<T> tail;
     private int count;
+    private Func<T, T, bool> priority;
 
-    private Func<T, T, bool> hasHigherPriority;
-    #endregion
-
-    public PriorityQueue(Func<T, T, bool> rule)
+    public PriorityQueue(Func<T, T, bool> priority)
     {
-        hasHigherPriority = rule;
+        this.priority = priority;
     }
 
+    public void SetPriority(Func<T, T, bool> newPriority)
+    {
+        priority = newPriority;
+    }
 
-
-    #region Public Methods
-    //-> O(1)
-    public void Enqueue(T value)//->O(1) O(n)
+    public void Enqueue(T value)
     {
         QueueNode<T> newNode = new(value);
         count++;
 
+        // Lista vacía
         if (head == null)
         {
             head = newNode;
             return;
         }
-        //-> [10]
-        //-> [15][10]     
-        //-> [15][10][2] 
-        //-> [15][10][2][1] 
-        //-> [15][10][4][2][2] [1] [1] [1] [1] [1] [1] [1] [1] [1] 
-        //->O1
-        if (hasHigherPriority(value, head.Value))
+
+        // Si tiene mayor prioridad que el primero
+        if (priority(value, head.Value))
         {
             newNode.SetNext(head);
             head = newNode;
             return;
         }
-        QueueNode<T> evaluator = head;
 
-        while (evaluator.Next != null && !hasHigherPriority(value, evaluator.Next.Value))
+        // Buscar posición correcta
+        QueueNode<T> current = head;
+
+        while (current.Next != null && !priority(value, current.Next.Value))
         {
-            evaluator = evaluator.Next;
+            current = current.Next;
         }
 
-        newNode.SetNext(evaluator.Next);
-        evaluator.SetNext(newNode);
-
-        /*tail.SetNext(newNode);
-        tail = newNode;*/
+        newNode.SetNext(current.Next);
+        current.SetNext(newNode);
     }
 
     public T Dequeue()
     {
         if (head == null)
-        {
-            Clear();
-            throw new System.Exception("Queue Empty");
-        }
-
+            throw new Exception("Queue vacía");
 
         T value = head.Value;
         head = head.Next;
-
         count--;
         return value;
     }
+
     public T Peek()
     {
         if (head == null)
-        {
-            Clear();
-            throw new System.Exception("Queue Empty");
-        }
-
+            throw new Exception("Queue vacía");
 
         return head.Value;
     }
+
     public void Clear()
     {
         head = null;
         count = 0;
     }
-    #endregion
 
-    #region Getters
     public int Count => count;
-    #endregion
+
+    public QueueNode<T> Head => head; // útil para UI
 }

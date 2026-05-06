@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 520200764827bd841883710c403a4e14, type: 3}
-  m_Name: 04
+  m_Name: Invocador
   m_EditorClassIdentifier: Assembly-CSharp::EntityStats
-  speed: 40
+  speed: 20
   id: 10
-  entityName: 
+  entityName: Invocador
