@@ -172,6 +172,42 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Loot1"",
+                    ""type"": ""Button"",
+                    ""id"": ""2e8453f3-16b0-43ef-a81e-215458d7cee5"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Loot2"",
+                    ""type"": ""Button"",
+                    ""id"": ""91149a49-fdf5-4397-9a41-16001e754027"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Loot3"",
+                    ""type"": ""Button"",
+                    ""id"": ""e93cdd3e-5de2-45ef-9318-1dc605b3f23a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Loot4"",
+                    ""type"": ""Button"",
+                    ""id"": ""0fd393e0-99fa-4231-ac99-712de3654b32"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -557,6 +593,50 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6a6c959e-6687-4ff5-8821-7c9378cfdb17"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Loot1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""49255736-deb9-49e7-a1b5-73c54f0e241c"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Loot2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""52f88b06-06a0-4139-864a-9d81b8a91e1d"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Loot3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2a252815-8bbd-4a97-b352-5151abc8b445"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Loot4"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1184,6 +1264,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_Previous = m_Player.FindAction("Previous", throwIfNotFound: true);
         m_Player_Next = m_Player.FindAction("Next", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
+        m_Player_Loot1 = m_Player.FindAction("Loot1", throwIfNotFound: true);
+        m_Player_Loot2 = m_Player.FindAction("Loot2", throwIfNotFound: true);
+        m_Player_Loot3 = m_Player.FindAction("Loot3", throwIfNotFound: true);
+        m_Player_Loot4 = m_Player.FindAction("Loot4", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1287,6 +1371,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Previous;
     private readonly InputAction m_Player_Next;
     private readonly InputAction m_Player_Sprint;
+    private readonly InputAction m_Player_Loot1;
+    private readonly InputAction m_Player_Loot2;
+    private readonly InputAction m_Player_Loot3;
+    private readonly InputAction m_Player_Loot4;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1334,6 +1422,22 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Sprint".
         /// </summary>
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Loot1".
+        /// </summary>
+        public InputAction @Loot1 => m_Wrapper.m_Player_Loot1;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Loot2".
+        /// </summary>
+        public InputAction @Loot2 => m_Wrapper.m_Player_Loot2;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Loot3".
+        /// </summary>
+        public InputAction @Loot3 => m_Wrapper.m_Player_Loot3;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Loot4".
+        /// </summary>
+        public InputAction @Loot4 => m_Wrapper.m_Player_Loot4;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1387,6 +1491,18 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Sprint.started += instance.OnSprint;
             @Sprint.performed += instance.OnSprint;
             @Sprint.canceled += instance.OnSprint;
+            @Loot1.started += instance.OnLoot1;
+            @Loot1.performed += instance.OnLoot1;
+            @Loot1.canceled += instance.OnLoot1;
+            @Loot2.started += instance.OnLoot2;
+            @Loot2.performed += instance.OnLoot2;
+            @Loot2.canceled += instance.OnLoot2;
+            @Loot3.started += instance.OnLoot3;
+            @Loot3.performed += instance.OnLoot3;
+            @Loot3.canceled += instance.OnLoot3;
+            @Loot4.started += instance.OnLoot4;
+            @Loot4.performed += instance.OnLoot4;
+            @Loot4.canceled += instance.OnLoot4;
         }
 
         /// <summary>
@@ -1425,6 +1541,18 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Sprint.started -= instance.OnSprint;
             @Sprint.performed -= instance.OnSprint;
             @Sprint.canceled -= instance.OnSprint;
+            @Loot1.started -= instance.OnLoot1;
+            @Loot1.performed -= instance.OnLoot1;
+            @Loot1.canceled -= instance.OnLoot1;
+            @Loot2.started -= instance.OnLoot2;
+            @Loot2.performed -= instance.OnLoot2;
+            @Loot2.canceled -= instance.OnLoot2;
+            @Loot3.started -= instance.OnLoot3;
+            @Loot3.performed -= instance.OnLoot3;
+            @Loot3.canceled -= instance.OnLoot3;
+            @Loot4.started -= instance.OnLoot4;
+            @Loot4.performed -= instance.OnLoot4;
+            @Loot4.canceled -= instance.OnLoot4;
         }
 
         /// <summary>
@@ -1799,6 +1927,34 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnSprint(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Loot1" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLoot1(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Loot2" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLoot2(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Loot3" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLoot3(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Loot4" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLoot4(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

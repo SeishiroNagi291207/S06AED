@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a7df94a1bca294a45aa235521ef24164, type: 3}
-  m_Name: Kion
-  m_EditorClassIdentifier: Assembly-CSharp::BaseEntity
-  ID: 321
-  EntityName: Kion
+  m_Name: Flame Staff
+  m_EditorClassIdentifier: Assembly-CSharp::BaseEntityData
+  ID: 5
+  EntityName: Flame Staff
+  Description: "Bast\xF3n m\xE1gico capaz de invocar fuego"
   Icon: {fileID: 0}
-  Description: 

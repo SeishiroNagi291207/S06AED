@@ -1,33 +1,54 @@
-using UnityEngine;
-using System.Collections.Generic;
 using Sirenix.OdinInspector;
-using UnityEngine.UIElements;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
 
 [CreateAssetMenu(fileName = "DataBaseEntity", menuName = "Scriptable Objects/DataBaseEntity")]
 public class DataBaseEntity : SerializedScriptableObject
 {
-    [FoldoutGroup("References"), PreviewField(150)]
+
+    private BaseEntityData lastItem;
+    [FoldoutGroup("References")]
+    [PreviewField(150)]
     public GameObject entityPrefab;
 
-    public Dictionary <Rarity, List<BaseEntityData>> dataBaseEntitys = new();
+    [FoldoutGroup("Loot Database")]
+    public Dictionary<Rarity, List<BaseEntityData>> dataBaseEntitys = new();
 
-    public BaseEntityData GetRandomEntity (Rarity rarity)
+    public BaseEntityData GetRandomEntity(Rarity rarity)
     {
-        if(dataBaseEntitys.TryGetValue(rarity, out List<BaseEntityData> entities))
+        if (dataBaseEntitys.TryGetValue(rarity, out List<BaseEntityData> entities))
         {
-            return entities[ Random.Range(0, entities.Count)];
+            if (entities.Count == 0)
+            {
+                return null;
+            }
+
+            BaseEntityData randomItem;
+
+            do
+            {
+                randomItem = entities[Random.Range(0, entities.Count)];
+            }
+            while (entities.Count > 1 && randomItem == lastItem);
+
+            lastItem = randomItem;
+
+            return randomItem;
         }
-        else 
-        {
-            throw new System.Exception("La rareza definida no existe!!!");
-        }
+
+        Debug.LogError("No existen items para esta rareza");
+        return null;
     }
 
     public GameObject InstantiateEntity(Rarity rarity, Vector3 position)
     {
         GameObject obj = Instantiate(entityPrefab);
-      //obj.GetComponent<BaseEntity>().Set(GetRandomEntity(rarity));
+
+        BaseEntityData randomEntity = GetRandomEntity(rarity);
+
         obj.transform.position = position;
+
         return obj;
     }
 }
